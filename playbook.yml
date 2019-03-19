@@ -1,0 +1,19 @@
+---
+
+  - name: tomcat role
+    hosts: tag_Type_tomcat
+    become: yes
+    roles:
+      - tomcat
+
+  - name: nginx role
+    hosts: tag_Type_nginx
+    become: yes
+    roles:
+      - webserver
+
+  - name: mysql role
+    hosts: tag_Type_mysql
+    become: yes
+    roles:
+      - mysql

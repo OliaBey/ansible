@@ -1,0 +1,29 @@
+---
+# tasks file for webserver
+
+#- name: update all packages
+#  yum:
+#    name: '*'
+#    state: latest
+
+- name: Copy epel to server
+  get_url:
+    url: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    dest: /home/ec2-user/
+
+- name: install the latest version of Nginx and Wget
+  yum:
+    name: "{{ item }}"
+    state: installed
+  loop:
+    - /home/ec2-user/epel-release-latest-7.noarch.rpm
+    - nginx
+    - wget
+
+- name: Config nginx.conf
+  template: src=nginx_conf.j2 dest=/etc/nginx/nginx.conf
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted

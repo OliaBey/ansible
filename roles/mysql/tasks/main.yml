@@ -1,0 +1,66 @@
+---
+# tasks file for mysql
+- name: Install Mysql-community-release-el7-5.noarch.rpm
+  yum:
+    name: http://dev.mysql.com/get/"{{ mysql_repo }}"
+    state: present
+
+- name: Install MySQL 5.6
+  yum:
+    name: mysql-community-server
+    state: present
+
+- name: Version mysql
+  shell: mysql --version
+  register: version
+
+- debug:
+    msg: "{{ version.stdout }}"
+
+- name: Install MySQL-python
+  yum: name=MySQL-python.x86_64 state=present
+
+- name: start mysql
+  service:
+    name: mysqld
+    state: started
+    enabled: yes
+  register: result
+
+- debug:
+    msg: "{{ result.state }}"
+
+- name: Create a new database with name 'broadleaf'
+  mysql_db:
+    name: broadleaf
+    state: present
+
+#- name: update mysql root password for all root accounts
+#  mysql_user:
+#    name: root
+#    host: "{{ item }}"
+#    password: "psw"
+#    login_user: root
+#    login_password: ""
+#    check_implicit_admin: yes
+#    priv: "*.*:ALL,GRANT"
+#  loop:
+#  - "{{ ansible_hostname }}"
+#  - 10.0.0.0/16
+#  - ::1
+#  - localhost
+
+
+#- name: Install mysql
+#  block:
+#    - name: Download repo
+#      get_url:
+#        url: https://dev.mysql.com/get/{{ mysql_repo }}
+               #https://dev.mysql.com/downloads/file/?id=482300
+#        dest: /home/ec2-user/
+
+#    - name: Unpackaging repo
+#      shell: rpm -ivh "{{ mysql_repo }}"
+
+#- name: get service status
+#  service_facts: ansible_facts

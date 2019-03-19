@@ -1,0 +1,9 @@
+
+mysql ansible_host=34.222.148.181 ansible_user=ec2-user ansible_ssh_private_key_file=/home/faynaubuntu/.ssh/OregonMy.pem
+
+[tomcat]
+tomcat1 ansible_host=35.161.10.118 ansible_user=ec2-user ansible_ssh_private_key_file=/home/faynaubuntu/.ssh/OregonMy.pem
+tomcat2 ansible_host=34.211.232.244 ansible_user=ec2-user ansible_ssh_private_key_file=/home/faynaubuntu/.ssh/OregonMy.pem
+
+[nginx]
+nginx1 ansible_host=54.184.117.162 ansible_user=ec2-user ansible_ssh_private_key_file=/home/faynaubuntu/.ssh/OregonMy.pem

@@ -1,0 +1,13 @@
+---
+- name: DemoSite Upload
+  hosts: tomcat
+  gather_facts: no
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: DemoSite Upload
+      get_url:
+        url: https://s3-us-west-2.amazonaws.com/demosite11/HelloWorld-Time.war
+        #https://s3-us-west-2.amazonaws.com/demosite11/sample.war
+        dest: /opt/tomcat/webapps/

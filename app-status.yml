@@ -1,0 +1,10 @@
+---
+
+- name: Check that connect (GET) to a page and it returns a status 200
+  uri:
+    url: http://35.161.10.118:8080/hello-world-war-1.0.0/
+  register: result
+
+- name: Check the page status
+  debug:
+   msg: "{{ result.status }}"
